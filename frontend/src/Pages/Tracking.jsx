@@ -59,6 +59,7 @@ const [rowData, setRowData] = useState([
             </div>
             <div>
                 <h2>Search</h2>
+                {/* //search command */}
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'auto auto auto auto', alignItems: 'center' }}>
