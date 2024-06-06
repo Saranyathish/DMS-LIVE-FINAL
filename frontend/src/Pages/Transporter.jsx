@@ -14,38 +14,56 @@ import DockCanvas from './canvas/DockCanvas';
 import { exportToExcel } from './utils/excelUtils'
 import LocationCanvas from './canvas/LocationCanvas';
 import TenantCanvas from './canvas/TenantCanvas';
+import TransporterCanvas from './canvas/TransporterCanvas';
 
 
-const Tenant = () => {
+const Transporter = () => {
     const [tableData, setTableData] = useState([]);
     const [addSection, setAddSection] = useState(false);
     const [editSection, setEditSection] = useState(false);
     const [formData, setFormData] = useState({
-        Tcode: '',
-        Cname:'',
-        address: '', 
-        Cperson:'',
+        Trname: '',
+        country:'',
+        Cnumber:"",
+        remarks: "",
+        Trcode: "",
+        province: "",
+        Cperson: "",
+        Active: false,
+        address: "",
+        city: "",
         email: "",
-        Cnumber: "",
     });
     const [formDataEdit, setFormDataEdit] = useState({
-        Tcode: '',
-        Cname:'',
-        address: '', 
-        Cperson:'',
+        Trname: '',
+        country:'',
+        Cnumber:"",
+        remarks: "",
+        Trcode: "",
+        province: "",
+        Cperson: "",
+        Active: false,
+        address: "",
+        city: "",
         email: "",
-        Cnumber: "",
+       
+        
     });
     
    
 
     const columnDefs = [
-        { headerName: 'Cust/Tenant/Cons code', field: 'Tcode' },
-        { headerName: 'Cust/Tenant/Cons Name', field: 'Cname' },
+        { headerName: 'Transporter Name', field: 'Trname' },
+        { headerName: 'Transporter Code', field: 'Trcode' },
         { headerName: 'Address', field: 'address' },
-        { headerName: 'Contact person', field: 'Cperson' },
+        { headerName: 'Country', field: 'country' },
         { headerName: 'Email', field: 'email' },
-        { headerName: 'Contact Number', field: 'Cnumber' },
+        {
+            headerName: 'Active', field: 'Active',
+            cellRenderer: (params) => (
+                <ThumbUpIcon style={{ color: params.value ? 'green' : 'grey' }} />
+            )
+        },
         
         {
             headerName: 'Edit',
@@ -71,7 +89,7 @@ const Tenant = () => {
     };
 
     const getFetchData = async () => {
-        const response = await axios.get("http://localhost:5000/tenant");
+        const response = await axios.get("http://localhost:5000/transporter");
         if (response.data.success) {
             console.log(response.data.data);
             setTableData(response.data.data);
@@ -84,17 +102,23 @@ const Tenant = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:5000/createtenant", formData);
+        const response = await axios.post("http://localhost:5000/createtransporter", formData);
         if (response.data.success) {
             alert(response.data.message);
             getFetchData();
             setFormData({  
-            Tcode: '',
-            Tname:'',
-            address: '', 
-            Cperson:'',
-            email: "",
-            Cnumber: "",});
+                Trname: '',
+        country:'',
+        Cnumber:"",
+        remarks: "",
+        Trcode: "",
+        province: "",
+        Cperson: "",
+        Active: false,
+        address: "",
+        city: "",
+        email: "",
+            });
             setAddSection(false);
         }
     };
@@ -102,7 +126,7 @@ const Tenant = () => {
     const handleDelete = async (id) => {
         try {
             console.log("Deleting:", id);
-            const response = await axios.delete(`http://localhost:5000/deletetenant/${id}`);
+            const response = await axios.delete(`http://localhost:5000/deletetransporter/${id}`);
             if (response.data.success) {
                 setTableData(prevData => prevData.filter(item => item._id !== id));
                 alert(response.data.message);
@@ -117,7 +141,7 @@ const Tenant = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const response = await axios.put("http://localhost:5000/updatetenant", formDataEdit);
+        const response = await axios.put("http://localhost:5000/updatetransporter", formDataEdit);
         if (response.data.success) {
             getFetchData();
             alert(response.data.message);
@@ -148,7 +172,7 @@ const Tenant = () => {
     };
 
     const handleExportToExcel = () => {
-        exportToExcel(tableData, "Tenant", "TenantData.xlsx");
+        exportToExcel(tableData, "Transporters", "TransporterData.xlsx");
     };
 
     return (
@@ -156,7 +180,7 @@ const Tenant = () => {
             <Nav />
             <div style={{ paddingLeft: "50px" }}>
                 <Grid>
-                    <TenantCanvas
+                    <TransporterCanvas
                         show={addSection || editSection}
                         setAddSection={setAddSection}
                         handleSubmit={handleSubmit}
@@ -188,4 +212,4 @@ const Tenant = () => {
     );
 };
 
-export default Tenant;
+export default Transporter;

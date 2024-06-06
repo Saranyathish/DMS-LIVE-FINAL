@@ -5,7 +5,7 @@ import { Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
 import { Country, State, City } from 'country-state-city';
 import axios from 'axios';
 
-const TenantCanvas = ({
+const TransporterCanvas = ({
     show,
     setAddSection,
     handleSubmit,
@@ -91,14 +91,14 @@ const TenantCanvas = ({
     return (
         <>
             <div className="d-flex justify-content-between align-items-center mb-3">
-                <h2>Cust/Tenant/Cons Master List</h2>
+                <h2>Transporter List</h2>
                 
                     <Button
                         variant="primary"
                         onClick={toggleShow}
-                        style={{ backgroundColor: '#7c5f87', marginLeft:'700px' }} // Added margin to the right
+                        style={{ backgroundColor: '#7c5f87', marginLeft:'950px' }} // Added margin to the right
                     >
-                        Add Cust/Tenant/Cons
+                        Add Transporter
                     </Button>
                     <Button
                         variant="secondary"
@@ -112,31 +112,74 @@ const TenantCanvas = ({
             <Offcanvas show={visible} onHide={toggleShow} style={{ width: "80%" }}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>
-                        {editSection ? "Edit Company" : "Add Company"}
+                        {editSection ? "Edit Transporter" : "Add Transporter"}
                     </Offcanvas.Title>
                 </Offcanvas.Header>
                 <hr />
                 <Offcanvas.Body>
                     <Form onSubmit={editSection ? handleUpdate : handleSubmit}>
                         <Row>
-                            <Col md={6}>
-                                <FormGroup>
-                                    <Label for="Tcode">Cust/Tenant/Cons Code *</Label>
+                            <Col md={4}>
+                            <FormGroup>
+                                    <Label for="Trname">Transporter Name</Label>
                                     <Input
-                                        id="Tcode"
-                                        name="Tcode"
+                                        id="Trname"
+                                        name="Trname"
                                         type="text"
-                                        value={editSection ? formDataEdit.Tcode : formData.Tcode}
+                                        value={editSection ? formDataEdit.Trname : formData.Trname}
                                         onChange={editSection ? handleEditOnChange : handleOnChange}
                                     />
                                 </FormGroup>
+
                                 <FormGroup>
-                                    <Label for="address">Address</Label>
+                                    <Label for="country">Country</Label>
                                     <Input
-                                        id="address"
-                                        name="address"
+                                        id="country"
+                                        name="country"
+                                        type="select"
+                                        value={editSection ? formDataEdit.countryCode : formData.countryCode}
+                                        onChange={handleCountryChange}
+                                    >
+                                        <option value="">Select Country</option>
+                                        {countries.map(country => (
+                                            <option key={country.isoCode} value={country.isoCode}>
+                                                {country.name}
+                                            </option>
+                                        ))}
+                                    </Input>
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Label for="Cnumber">Contact Number</Label>
+                                    <Input
+                                        id="Cnumber"
+                                        name="Cnumber"
                                         type="text"
-                                        value={editSection ? formDataEdit.address : formData.address}
+                                        value={editSection ? formDataEdit.Cnumber : formData.Cnumber}
+                                        onChange={editSection ? handleEditOnChange : handleOnChange}
+                                    />
+                                </FormGroup>
+
+                                <FormGroup>
+                                    <Label for="remarks">Remarks</Label>
+                                    <Input
+                                        id="remarks"
+                                        name="remarks"
+                                        type="textarea"
+                                        value={editSection ? formDataEdit.remarks : formData.remarks}
+                                        onChange={editSection ? handleEditOnChange : handleOnChange}
+                                    />
+                                </FormGroup>
+                               
+                            </Col>
+                            <Col md={4}>
+                            <FormGroup>
+                                    <Label for="Trcode">Cust/Tenant/Cons Code *</Label>
+                                    <Input
+                                        id="Trcode"
+                                        name="Trcode"
+                                        type="text"
+                                        value={editSection ? formDataEdit.Trcode : formData.Trcode}
                                         onChange={editSection ? handleEditOnChange : handleOnChange}
                                     />
                                 </FormGroup>
@@ -157,66 +200,46 @@ const TenantCanvas = ({
                                         ))}
                                     </Input>
                                 </FormGroup>
+                                 
+                                
                                
                                 <FormGroup>
-                                    <Label for="subdistrict">Sub-District</Label>
+                                    <Label for="Cperson">Contact Person</Label>
                                     <Input
-                                        id="subdistrict"
-                                        name="subdistrict"
+                                        id="Cperson"
+                                        name="Cperson"
                                         type="text"
-                                        value={editSection ? formDataEdit.subdistrict : formData.subdistrict}
+                                        value={editSection ? formDataEdit.Cperson : formData.Cperson}
                                         onChange={editSection ? handleEditOnChange : handleOnChange}
                                     />
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label for="Cnumber">Contact Number</Label>
-                                    <Input
-                                        id="Cnumber"
-                                        name="Cnumber"
-                                        type="text"
-                                        value={editSection ? formDataEdit.Cnumber : formData.Cnumber}
-                                        onChange={editSection ? handleEditOnChange : handleOnChange}
-                                    />
+                                
+                                 <FormGroup check>
+                                    <Label check>
+                                        <Input
+                                            type="checkbox"
+                                            name="Active"
+                                            disabled='true'
+                                            checked={editSection ? formDataEdit.Active : formData.Active}
+                                            onChange={editSection ? handleEditOnChange : handleOnChange}
+                                        />
+                                        Active
+                                    </Label>
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label for="fax">Fax</Label>
-                                    <Input
-                                        id="fax"
-                                        name="fax"
-                                        type="text"
-                                        value={editSection ? formDataEdit.fax : formData.fax}
-                                        onChange={editSection ? handleEditOnChange : handleOnChange}
-                                    />
-                                </FormGroup>
-                               
+                                
+                                
                             </Col>
-                            <Col md={6}>
-                                <FormGroup>
-                                    <Label for="Cname">Cust/Tenant/Cons Name</Label>
+                            <Col md={4}>
+
+                            <FormGroup>
+                                    <Label for="address">Address</Label>
                                     <Input
-                                        id="Cname"
-                                        name="Cname"
+                                        id="address"
+                                        name="address"
                                         type="text"
-                                        value={editSection ? formDataEdit.Cname : formData.Cname}
+                                        value={editSection ? formDataEdit.address : formData.address}
                                         onChange={editSection ? handleEditOnChange : handleOnChange}
                                     />
-                                </FormGroup>
-                                 <FormGroup>
-                                    <Label for="country">Country</Label>
-                                    <Input
-                                        id="country"
-                                        name="country"
-                                        type="select"
-                                        value={editSection ? formDataEdit.countryCode : formData.countryCode}
-                                        onChange={handleCountryChange}
-                                    >
-                                        <option value="">Select Country</option>
-                                        {countries.map(country => (
-                                            <option key={country.isoCode} value={country.isoCode}>
-                                                {country.name}
-                                            </option>
-                                        ))}
-                                    </Input>
                                 </FormGroup>
                                 <FormGroup>
                                     <Label for="city">City/Distric</Label>
@@ -235,17 +258,6 @@ const TenantCanvas = ({
                                         ))}
                                     </Input>
                                 </FormGroup>
-                               
-                                <FormGroup>
-                                    <Label for="Cperson">Contact Person</Label>
-                                    <Input
-                                        id="Cperson"
-                                        name="Cperson"
-                                        type="text"
-                                        value={editSection ? formDataEdit.Cperson : formData.Cperson}
-                                        onChange={editSection ? handleEditOnChange : handleOnChange}
-                                    />
-                                </FormGroup>
                                 <FormGroup>
                                     <Label for="email">Email</Label>
                                     <Input
@@ -255,36 +267,12 @@ const TenantCanvas = ({
                                         value={editSection ? formDataEdit.email : formData.email}
                                         onChange={editSection ? handleEditOnChange : handleOnChange}
                                     />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="remarks">Remarks</Label>
-                                    <Input
-                                        id="remarks"
-                                        name="remarks"
-                                        type="textarea"
-                                        value={editSection ? formDataEdit.remarks : formData.remarks}
-                                        onChange={editSection ? handleEditOnChange : handleOnChange}
-                                    />
-                                </FormGroup>
-                                 <FormGroup check>
-                                    <Label check>
-                                        <Input
-                                            type="checkbox"
-                                            name="Active"
-                                            disabled='true'
-                                            checked={editSection ? formDataEdit.Active : formData.Active}
-                                            onChange={editSection ? handleEditOnChange : handleOnChange}
-                                        />
-                                        Active
-                                    </Label>
-                                </FormGroup>
-                                
-                                
+                                </FormGroup> 
                             </Col>
                         </Row>
                         <div style={{marginLeft: "500px"}} >
                         <Button type="submit" style={{ marginTop: '15px', backgroundColor: '#7c5f87'}}>
-                                    {editSection ? "Update Company" : "Add Company"}
+                                    {editSection ? "Update Transporter" : "Add Transporter"}
                                 </Button>
                                 <Button type="button" 
                                 onClick={toggleShow}
@@ -299,4 +287,4 @@ const TenantCanvas = ({
     );
 };
 
-export default TenantCanvas;
+export default TransporterCanvas;

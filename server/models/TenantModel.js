@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const TenantSchema = new mongoose.Schema(
     {
         Tcode: String,
-        Tname:String,
+        Cname:String,
         address: String,
         Cperson:String,
         email: String,
