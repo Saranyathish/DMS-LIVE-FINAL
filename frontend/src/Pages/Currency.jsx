@@ -64,7 +64,7 @@ const Currency = () => {
     };
 
     const getFetchData = async () => {
-        const response = await axios.get("http://localhost:5000/currency");
+        const response = await axios.get("https://dms-live-final-2.onrender.com/currency");
         if (response.data.success) {
             setTableData(response.data.data);
         }
@@ -76,7 +76,7 @@ const Currency = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:5000/createcurrency", formData);
+        const response = await axios.post("https://dms-live-final-2.onrender.com/createcurrency", formData);
         if (response.data.success) {
             alert(response.data.message);
             getFetchData();
@@ -92,7 +92,7 @@ const Currency = () => {
     const handleDelete = async (id) => {
         try {
             console.log("Deleting:", id);
-            const response = await axios.delete(`http://localhost:5000/deletecurrency/${id}`);
+            const response = await axios.delete(`https://dms-live-final-2.onrender.com/deletecurrency/${id}`);
             if (response.data.success) {
                 // Update tableData state to reflect the changes
                 setTableData(prevData => prevData.filter(item => item._id !== id));
@@ -108,7 +108,7 @@ const Currency = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const response = await axios.put("http://localhost:5000/updatecurrency", formDataEdit);
+        const response = await axios.put("https://dms-live-final-2.onrender.com/updatecurrency", formDataEdit);
         if (response.data.success) {
             getFetchData();
             alert(response.data.message);

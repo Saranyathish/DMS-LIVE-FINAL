@@ -89,7 +89,7 @@ const Transporter = () => {
     };
 
     const getFetchData = async () => {
-        const response = await axios.get("http://localhost:5000/transporter");
+        const response = await axios.get("https://dms-live-final-2.onrender.com/transporter");
         if (response.data.success) {
             console.log(response.data.data);
             setTableData(response.data.data);
@@ -102,7 +102,7 @@ const Transporter = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:5000/createtransporter", formData);
+        const response = await axios.post("https://dms-live-final-2.onrender.com/createtransporter", formData);
         if (response.data.success) {
             alert(response.data.message);
             getFetchData();
@@ -126,7 +126,7 @@ const Transporter = () => {
     const handleDelete = async (id) => {
         try {
             console.log("Deleting:", id);
-            const response = await axios.delete(`http://localhost:5000/deletetransporter/${id}`);
+            const response = await axios.delete(`https://dms-live-final-2.onrender.com/deletetransporter/${id}`);
             if (response.data.success) {
                 setTableData(prevData => prevData.filter(item => item._id !== id));
                 alert(response.data.message);
@@ -141,7 +141,7 @@ const Transporter = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const response = await axios.put("http://localhost:5000/updatetransporter", formDataEdit);
+        const response = await axios.put("https://dms-live-final-2.onrender.com/updatetransporter", formDataEdit);
         if (response.data.success) {
             getFetchData();
             alert(response.data.message);

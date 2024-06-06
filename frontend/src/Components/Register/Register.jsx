@@ -41,7 +41,7 @@ function Register() {
           return;
         }
         setIsLoading(true);
-        axios.post('http://localhost:5000/signup',{userid, password, cpassword})
+        axios.post('https://dms-live-final-2.onrender.com/signup',{userid, password, cpassword})
         .then(result => {
           console.log(result)
           setIsLoading(false);

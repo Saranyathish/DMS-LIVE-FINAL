@@ -58,7 +58,7 @@ const DockBooking = () => {
 
     const fetchLocations = () => {
         // Replace 'your_api_endpoint' with your actual API endpoint to fetch locations
-        fetch('http://localhost:3001/locations')
+        fetch('https://dms-live-final-2.onrender.com/locations')
             .then(response => response.json())
             .then(data => setLocations(data))
             .catch(error => console.error('Error fetching locations:', error));
@@ -66,7 +66,7 @@ const DockBooking = () => {
 
     const fetchCustomers = () => {
         // Replace 'your_api_endpoint' with your actual API endpoint to fetch customers
-        fetch('http://localhost:3001/customers')
+        fetch('https://dms-live-final-2.onrender.com/customers')
             .then(response => response.json())
             .then(data => setCustomers(data))
             .catch(error => console.error('Error fetching customers:', error));

@@ -86,7 +86,7 @@ const Dock = () => {
     };
 
     const getFetchData = async () => {
-        const response = await axios.get("http://localhost:5000/dock");
+        const response = await axios.get("https://dms-live-final-2.onrender.com/dock");
         if (response.data.success) {
             setTableData(response.data.data);
         }
@@ -98,7 +98,7 @@ const Dock = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:5000/createdock", formData);
+        const response = await axios.post("https://dms-live-final-2.onrender.com/createdock", formData);
         if (response.data.success) {
             alert(response.data.message);
             getFetchData();
@@ -110,7 +110,7 @@ const Dock = () => {
     const handleDelete = async (id) => {
         try {
             console.log("Deleting:", id);
-            const response = await axios.delete(`http://localhost:5000/deletedock/${id}`);
+            const response = await axios.delete(`https://dms-live-final-2.onrender.com/deletedock/${id}`);
             if (response.data.success) {
                 setTableData(prevData => prevData.filter(item => item._id !== id));
                 alert(response.data.message);
@@ -125,7 +125,7 @@ const Dock = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const response = await axios.put("http://localhost:5000/updatedock", formDataEdit);
+        const response = await axios.put("https://dms-live-final-2.onrender.com/updatedock", formDataEdit);
         if (response.data.success) {
             getFetchData();
             alert(response.data.message);

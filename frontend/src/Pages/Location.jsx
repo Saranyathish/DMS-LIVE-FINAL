@@ -97,7 +97,7 @@ const Location = () => {
     };
 
     const getFetchData = async () => {
-        const response = await axios.get("http://localhost:5000/location");
+        const response = await axios.get("https://dms-live-final-2.onrender.com/location");
         if (response.data.success) {
             console.log(response.data.data);
             setTableData(response.data.data);
@@ -110,7 +110,7 @@ const Location = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:5000/createlocation", formData);
+        const response = await axios.post("https://dms-live-final-2.onrender.com/createlocation", formData);
         if (response.data.success) {
             alert(response.data.message);
             getFetchData();
@@ -128,7 +128,7 @@ const Location = () => {
     const handleDelete = async (id) => {
         try {
             console.log("Deleting:", id);
-            const response = await axios.delete(`http://localhost:5000/deletelocation/${id}`);
+            const response = await axios.delete(`https://dms-live-final-2.onrender.com/deletelocation/${id}`);
             if (response.data.success) {
                 setTableData(prevData => prevData.filter(item => item._id !== id));
                 alert(response.data.message);
@@ -143,7 +143,7 @@ const Location = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const response = await axios.put("http://localhost:5000/updatelocation", formDataEdit);
+        const response = await axios.put("https://dms-live-final-2.onrender.com/updatelocation", formDataEdit);
         if (response.data.success) {
             getFetchData();
             alert(response.data.message);

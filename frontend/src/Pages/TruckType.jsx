@@ -59,7 +59,7 @@ const TruckType = () => {
     };
 
     const getFetchData = async () => {
-        const response = await axios.get("http://localhost:5000/trucks");
+        const response = await axios.get("https://dms-live-final-2.onrender.com/trucks");
         if (response.data.success) {
             setTableData(response.data.data);
         }
@@ -71,7 +71,7 @@ const TruckType = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:5000/createtruck", formData);
+        const response = await axios.post("https://dms-live-final-2.onrender.com/createtruck", formData);
         if (response.data.success) {
             alert(response.data.message);
             getFetchData();
@@ -86,7 +86,7 @@ const TruckType = () => {
     const handleDelete = async (id) => {
         try {
             console.log("Deleting:", id);
-            const response = await axios.delete(`http://localhost:5000/deletetruck/${id}`);
+            const response = await axios.delete(`https://dms-live-final-2.onrender.com/deletetruck/${id}`);
             if (response.data.success) {
                 setTableData(prevData => prevData.filter(item => item._id !== id));
                 alert(response.data.message);
@@ -101,7 +101,7 @@ const TruckType = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const response = await axios.put("http://localhost:5000/updatetruck", formDataEdit);
+        const response = await axios.put("https://dms-live-final-2.onrender.com/updatetruck", formDataEdit);
         if (response.data.success) {
             getFetchData();
             alert(response.data.message);

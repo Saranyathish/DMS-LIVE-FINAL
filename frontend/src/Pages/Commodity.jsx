@@ -57,7 +57,7 @@ const Commodity = () => {
     };
 
     const getFetchData = async () => {
-        const response = await axios.get("http://localhost:5000/commodity");
+        const response = await axios.get("https://dms-live-final-2.onrender.com/commodity");
         if (response.data.success) {
             setTableData(response.data.data);
         }
@@ -69,7 +69,7 @@ const Commodity = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post("http://localhost:5000/createcommodity", formData);
+        const response = await axios.post("https://dms-live-final-2.onrender.com/createcommodity", formData);
         if (response.data.success) {
             alert(response.data.message);
             getFetchData();
@@ -84,7 +84,7 @@ const Commodity = () => {
     const handleDelete = async (id) => {
         try {
             console.log("Deleting:", id);
-            const response = await axios.delete(`http://localhost:5000/deletecommodity/${id}`);
+            const response = await axios.delete(`https://dms-live-final-2.onrender.com/deletecommodity/${id}`);
             if (response.data.success) {
                 setTableData(prevData => prevData.filter(item => item._id !== id));
                 alert(response.data.message);
@@ -99,7 +99,7 @@ const Commodity = () => {
 
     const handleUpdate = async (e) => {
         e.preventDefault();
-        const response = await axios.put("http://localhost:5000/updatecommodity", formDataEdit);
+        const response = await axios.put("https://dms-live-final-2.onrender.com/updatecommodity", formDataEdit);
         if (response.data.success) {
             getFetchData();
             alert(response.data.message);
