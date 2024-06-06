@@ -11,12 +11,15 @@ const LocationModel = require('./models/LocationModel');
 const TenantModel = require('./models/TenantModel');
 const TransporterModel = require('./models/TransporterModel');
 
+
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+ app.use(cors({
+   origin: 'https://dms-live-frontend.onrender.com'
+  }));
 
-mongoose.connect("mongodb://127.0.0.1:27017/dock");
+mongoose.connect('mongodb://127.0.0.1:27017/dock');
 
 
 
